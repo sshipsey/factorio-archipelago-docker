@@ -35,7 +35,7 @@ ENV ARCHIPELAGO_SERVER=${ARCHIPELAGO_SERVER}
 ENV ARCHIPELAGO_PORT=${ARCHIPELAGO_PORT}
 
 # Archipelago dependencies
-RUN apt-get -q update && apt-get -qy install libmtdev1 python3-tk ffmpeg libsm6 libxext6 libsdl2-2.0 libsdl2-dev xclip ca-certificates curl jq pwgen xz-utils procps gettext-base socat --no-install-recommends
+RUN apt-get -q update && apt-get -qy install expect libmtdev1 python3-tk ffmpeg libsm6 libxext6 jq libsdl2-2.0 libsdl2-dev xclip ca-certificates curl pwgen xz-utils procps gettext-base --no-install-recommends
 
 RUN addgroup --system --gid "$PGID" "$GROUP" \
     && adduser --system --uid "$PUID" --gid "$PGID" --no-create-home --disabled-password --shell /bin/sh "$USER"
@@ -62,7 +62,7 @@ RUN mkdir -p /opt/Archipelago/factorio/mods \
     && curl -sSL --no-progress-meter "$ARCHIPELAGO_MOD_URL" -OJ \
     && mv ./* /opt/Archipelago/factorio/mods
 
-COPY files/*.sh /
+COPY files/*.* /
 
 VOLUME /factorio
 EXPOSE $PORT/udp $RCON_PORT/tcp

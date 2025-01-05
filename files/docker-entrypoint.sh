@@ -24,19 +24,4 @@ cat <<EOF > factorio/mods/mod-list.json
 }
 EOF
 
-./ArchipelagoFactorioClient <&0
-
-SERVER_PID=$!
-
-# Wait for the log file to be created
-while [ ! -f /opt/Archipelago/logs/FactorioClient_*.txt ]; do
-    sleep 1
-done
-
-( tail -f /opt/Archipelago/logs/FactorioClient_*.txt & ) | grep -q "Ready to connect to Archipelago via /connect"
-
-echo "Sending multiworld connect command..."
-
-script -q -c "printf '/connect ${ARCHIPELAGO_SERVER}:${ARCHIPELAGO_PORT}\n'" /proc/$SERVER_PID/fd/0
-
-wait $SERVER_PID
+/archi_factorio_expect.exp $ARCHIPELAGO_SERVER $ARCHIPELAGO_PORT

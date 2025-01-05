@@ -1,0 +1,14 @@
+#!/usr/bin/expect
+
+set timeout -1
+set send_human {.1 .3 1 .05 2}
+set server [lindex $argv 0];
+set port [lindex $argv 1]
+set pid [spawn /opt/Archipelago/ArchipelagoFactorioClient]
+
+expect -re ".*Ready to connect to Archipelago via /connect.*" {
+    puts "Log message detected: Ready to connect!"
+    send -h "/connect $server:$port\r"
+}
+
+expect eof
