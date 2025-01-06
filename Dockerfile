@@ -27,7 +27,6 @@ ENV PORT=34197 \
     FACTORIO_VERSION="2.0.28" \
     ARCHIPELAGO_VERSION="0.5.1"
 
-ARG ARCHIPELAGO_MOD_URL
 ARG ARCHIPELAGO_PORT
 ARG ARCHIPELAGO_SERVER
 
@@ -56,14 +55,10 @@ RUN archive="/tmp/factorio_headless_x64_$FACTORIO_VERSION.tar.xz" \
     && mkdir -p /opt/Archipelago/factorio/config/ \
     && chown -R "$USER":"$GROUP" /opt/Archipelago/factorio /factorio
 
-RUN mkdir -p /opt/Archipelago/factorio/mods \
-    && mkdir -p /tmp/archi-mod \
-    && cd /tmp/archi-mod \
-    && curl -sSL --no-progress-meter "$ARCHIPELAGO_MOD_URL" -OJ \
-    && mv ./* /opt/Archipelago/factorio/mods
-
 COPY files/*.* /
 
 VOLUME /factorio
+VOLUME /opt/Archipelago/factorio/mods
+VOLUME /opt/Archipelago/factorio/saves
 EXPOSE $PORT/udp $RCON_PORT/tcp
 ENTRYPOINT ["/docker-entrypoint.sh"]
