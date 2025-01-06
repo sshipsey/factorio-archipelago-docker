@@ -16,12 +16,6 @@ ARG PGID=845
 
 ENV PORT=34197 \
     RCON_PORT=27015 \
-    SAVES=/factorio/saves \
-    PRESET="$PRESET" \
-    CONFIG=/factorio/config \
-    MODS=/factorio/mods \
-    SCENARIOS=/factorio/scenarios \
-    SCRIPTOUTPUT=/factorio/script-output \
     PUID="$PUID" \
     PGID="$PGID" \
     FACTORIO_VERSION="2.0.28" \
