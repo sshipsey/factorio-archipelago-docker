@@ -19,14 +19,11 @@ ENV PORT=34197 \
     PUID="$PUID" \
     PGID="$PGID" \
     FACTORIO_VERSION="2.0.28" \
-    ARCHIPELAGO_VERSION="0.5.1"
-
-ARG ARCHIPELAGO_PORT
-ARG ARCHIPELAGO_SERVER
-
-ENV ARCHIPELAGO_SERVER=${ARCHIPELAGO_SERVER}
-ENV ARCHIPELAGO_PORT=${ARCHIPELAGO_PORT}
-
+    ARCHIPELAGO_VERSION="0.5.1" \
+    ARCHIPELAGO_SERVER="" \
+    ARCHIPELAGO_PORT="" \
+    FACTORIO_ADMIN=""
+    
 # Archipelago dependencies
 RUN apt-get -q update && apt-get -qy install expect libmtdev1 python3-tk ffmpeg libsm6 libxext6 jq libsdl2-2.0 libsdl2-dev xclip ca-certificates curl pwgen xz-utils procps gettext-base --no-install-recommends
 
