@@ -7,7 +7,7 @@ COPY rcon/ /src
 RUN make
 
 FROM debian:stable-slim
-LABEL maintainer="https://github.com/sshipsey/factorio-docker-archipelago"
+LABEL maintainer="https://github.com/sshipsey/factorio-archipelago-docker"
 
 ARG USER=factorio
 ARG GROUP=factorio
@@ -29,22 +29,6 @@ RUN apt-get -q update && apt-get -qy install expect libmtdev1 python3-tk ffmpeg 
 
 RUN addgroup --system --gid "$PGID" "$GROUP" \
     && adduser --system --uid "$PUID" --gid "$PGID" --no-create-home --disabled-password --shell /bin/sh "$USER"
-
-
-RUN curl -sSL --no-progress-meter "https://api.github.com/repos/ArchipelagoMW/Archipelago/releases/tags/$ARCHIPELAGO_VERSION"  \
-    | jq -r '.assets[] | select(.name | contains("linux-x86_64.tar.gz")).browser_download_url' \
-    | xargs curl -sSL --no-progress-meter -o /tmp/archipelago.tar.gz \
-    && tar -xzf /tmp/archipelago.tar.gz -C /opt \
-    && rm /tmp/archipelago.tar.gz
-
-RUN archive="/tmp/factorio_headless_x64_$FACTORIO_VERSION.tar.xz" \
-    && mkdir -p /opt/Archipelago/factorio /factorio \
-    && curl -sSL "https://www.factorio.com/get-download/$FACTORIO_VERSION/headless/linux64" -o "$archive" \
-    && tar xf "$archive" --directory /opt/Archipelago \
-    && chmod ugo=rwx /opt/Archipelago/factorio \
-    && rm "$archive" \
-    && mkdir -p /opt/Archipelago/factorio/config/ \
-    && chown -R "$USER":"$GROUP" /opt/Archipelago/factorio /factorio
 
 COPY files/*.* /
 
