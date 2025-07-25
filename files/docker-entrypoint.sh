@@ -51,10 +51,8 @@ fi
 
 cd "$ARCHI_DIR"
 
-cat <<EOF > factorio/data/server-settings.json
-{
-    "admins": ["$FACTORIO_ADMIN"]
-}
+cat <<EOF > factorio/data/server-adminlist.json
+["$FACTORIO_ADMIN"]
 EOF
 
 /archi_factorio_expect.exp $ARCHIPELAGO_SERVER $ARCHIPELAGO_PORT

@@ -32,7 +32,6 @@ RUN addgroup --system --gid "$PGID" "$GROUP" \
 
 COPY files/*.* /
 
-VOLUME /factorio
 VOLUME /opt/Archipelago/factorio/mods
 VOLUME /opt/Archipelago/factorio/saves
 EXPOSE $PORT/udp $RCON_PORT/tcp
